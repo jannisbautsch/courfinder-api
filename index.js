@@ -5,9 +5,6 @@ const app = express();
 app.use(express.json());
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.ObjectId;
-// const mongoUrl =
-//   "mongodb+srv://courtfinder:LpAE5thT3W33Hef7@cluster0.9hqp4.mongodb.net/?retryWrites=true&w=majority";
-
 const mongoUrl = process.env.MONGODB_URL;
 
 const CourtSchema = new Schema({
