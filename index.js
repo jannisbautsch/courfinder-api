@@ -1,23 +1,52 @@
 import express from "express";
+import mongoose from "mongoose";
 
 const app = express();
+app.use(express.json());
+const Schema = mongoose.Schema;
+const ObjectId = mongoose.ObjectId;
+const mongoUrl = proces.env.MONGODB_URL;
 
-app.get("/api/getAllMarkers", async (req, res) => {
-  const markers = {
-    markers: [
-      {
-        id: "0",
-        long: 1.223,
-        lat: 2.432,
-      },
-      {
-        id: "1",
-        long: 3.223,
-        lat: 4.432,
-      },
-    ],
-  };
+const CourtSchema = new Schema({
+  id: ObjectId,
+  lat: Number,
+  lon: Number,
+});
+
+const Court = mongoose.model("Court", CourtSchema);
+
+mongoose.connect(mongoUrl);
+const db = mongoose.connection;
+db.once("open", () => {
+  console.log("DB connection established");
+});
+
+// Court.create(
+//   {
+//     lat: 1.234,
+//     long: 2.345,
+//   },
+//   function (err, savedDocument) {
+//     if (err) console.log(err);
+//     console.log(savedDocument);
+//   }
+// );
+
+// const all = await Court.find()
+
+app.get("/api/allCourts", async (req, res) => {
+  const markers = await Court.find();
   res.json(markers);
+});
+
+app.post("/api/newCourt", async (req, res) => {
+  const reqLat = req.body.lat;
+  const reqLon = req.body.lon;
+  Court.create({
+    lat: reqLat,
+    lon: reqLon,
+  });
+  res.sendStatus(200);
 });
 
 if (process.env.NODE_ENV === "production") {
