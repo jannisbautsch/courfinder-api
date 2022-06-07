@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.ObjectId;
-const mongoUrl = proces.env.MONGODB_URL;
+const mongoUrl = process.env.MONGODB_URL;
 
 const CourtSchema = new Schema({
   id: ObjectId,
