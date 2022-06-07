@@ -1,0 +1,7 @@
+{
+  "name": "courtfinder-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jannis Bautsch & Nils Rausch",
+  "license": "MIT"
+}
