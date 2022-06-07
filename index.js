@@ -2,6 +2,24 @@ import express from "express";
 
 const app = express();
 
+app.get("/api/getAllMarkers", async (req, res) => {
+  const markers = {
+    markers: [
+      {
+        id: "0",
+        long: 1.223,
+        lat: 2.432,
+      },
+      {
+        id: "1",
+        long: 3.223,
+        lat: 4.432,
+      },
+    ],
+  };
+  res.json(markers);
+});
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
