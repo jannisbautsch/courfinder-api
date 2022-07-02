@@ -40,6 +40,7 @@ app.get("/api/allCourts", async (req, res) => {
 });
 
 app.post("/api/newCourt", async (req, res) => {
+  console.log(req.body);
   const reqLat = req.body.lat;
   const reqLon = req.body.lon;
   Court.create({
