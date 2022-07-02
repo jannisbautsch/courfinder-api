@@ -51,7 +51,7 @@ app.post("/api/newCourt", async (req, res) => {
   //   lon: reqLon,
   // });
   court.save(function (err, c) {
-    console.log(c.id);
+    console.log(c._id);
   });
   res.sendStatus(200);
 });
