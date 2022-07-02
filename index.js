@@ -1,11 +1,14 @@
 import express from "express";
 import mongoose from "mongoose";
+import { nanoid } from "nanoid";
 
 const app = express();
 app.use(express.json());
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.ObjectId;
-const mongoUrl = process.env.MONGODB_URL;
+// const mongoUrl = process.env.MONGODB_URL;
+const mongoUrl =
+  "mongodb+srv://courtfinder:LpAE5thT3W33Hef7@cluster0.9hqp4.mongodb.net/?retryWrites=true&w=majority";
 
 const CourtSchema = new Schema({
   id: ObjectId,
@@ -44,6 +47,7 @@ app.post("/api/newCourt", async (req, res) => {
   // const reqLat = req.body.lat;
   // const reqLon = req.body.lon;
   const court = new Court();
+  court.id = nanoid();
   court.lat = req.body.lat;
   court.lon = req.body.lon;
   // Court.create({
@@ -51,7 +55,7 @@ app.post("/api/newCourt", async (req, res) => {
   //   lon: reqLon,
   // });
   court.save(function (err, c) {
-    console.log(c._id);
+    console.log(court.id);
   });
   res.sendStatus(200);
 });
