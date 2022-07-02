@@ -44,7 +44,7 @@ app.get("/api/allCourts", async (req, res) => {
 
 app.post("/api/newCourt", async (req, res) => {
   const court = new Court();
-  court.id = nanoid();
+  court.id = nanoid(10);
   court.lat = req.body.lat;
   court.lon = req.body.lon;
 
