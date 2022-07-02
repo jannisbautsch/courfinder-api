@@ -43,20 +43,17 @@ app.get("/api/allCourts", async (req, res) => {
 });
 
 app.post("/api/newCourt", async (req, res) => {
-  console.log(req.body);
-  // const reqLat = req.body.lat;
-  // const reqLon = req.body.lon;
   const court = new Court();
   court.id = nanoid();
   court.lat = req.body.lat;
   court.lon = req.body.lon;
+
+  console.log(court.id);
   // Court.create({
   //   lat: reqLat,
   //   lon: reqLon,
   // });
-  court.save(function (err, c) {
-    console.log(court.id);
-  });
+  court.save();
   res.sendStatus(200);
 });
 
