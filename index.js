@@ -48,13 +48,10 @@ app.post("/api/newCourt", async (req, res) => {
   court.lat = req.body.lat;
   court.lon = req.body.lon;
 
-  console.log(court.id);
-  // Court.create({
-  //   lat: reqLat,
-  //   lon: reqLon,
-  // });
   court.save();
-  res.sendStatus(200);
+
+  res.setHeader("Content-Type", "application/json");
+  res.end(JSON.stringify({ id: court.id }));
 });
 
 const port = process.env.PORT || 3080;
