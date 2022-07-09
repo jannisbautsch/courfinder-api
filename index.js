@@ -5,13 +5,11 @@ import { nanoid } from "nanoid";
 const app = express();
 app.use(express.json());
 const Schema = mongoose.Schema;
-const ObjectId = mongoose.ObjectId;
-// const mongoUrl = process.env.MONGODB_URL;
-const mongoUrl =
-  "mongodb+srv://courtfinder:LpAE5thT3W33Hef7@cluster0.9hqp4.mongodb.net/?retryWrites=true&w=majority";
+const mongoUrl = process.env.MONGODB_URL;
 
 const CourtSchema = new Schema({
   id: String,
+  name: String,
   lat: Number,
   lon: Number,
 });
@@ -24,19 +22,6 @@ db.once("open", () => {
   console.log("DB connection established");
 });
 
-// Court.create(
-//   {
-//     lat: 1.234,
-//     long: 2.345,
-//   },
-//   function (err, savedDocument) {
-//     if (err) console.log(err);
-//     console.log(savedDocument);
-//   }
-// );
-
-// const all = await Court.find()
-
 app.get("/api/allCourts", async (req, res) => {
   const markers = await Court.find();
   res.json(markers);
@@ -45,7 +30,8 @@ app.get("/api/allCourts", async (req, res) => {
 app.post("/api/newCourt", async (req, res) => {
   const court = new Court();
   court.id = nanoid(10);
-  court.lat = req.body.lat;
+  court.name = req.body.name;
+  court.id = court.lat = req.body.lat;
   court.lon = req.body.lon;
 
   court.save();
